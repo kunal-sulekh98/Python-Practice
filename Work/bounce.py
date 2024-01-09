@@ -2,5 +2,5 @@
 #
 # Exercise 1.5
 
-x = 2
-#gg hhaa
+x = 20
+#gg hh
