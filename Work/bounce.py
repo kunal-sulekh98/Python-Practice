@@ -2,5 +2,5 @@
 #
 # Exercise 1.5
 
-x = 20
+x = 23
 #gg hh
