@@ -2,14 +2,24 @@
 #
 # Exercise 1.27
 
-result = 0
+import csv
 
-with open('./Work/Data/portfolio.csv', 'rt') as f:
-    h = next(f)
-    for line in f:
-        li = line.split(',')
-        share = int(li[1])
-        price = float(li[2][:-1])
-        result += share*price
+def portfolio_cost(filename):
+    result = 0
+    with open(filename) as f:
+        rows = csv.reader(f)
+        header = next(rows)
+        for row in rows:
+            #li = line.split(',')
+            try:
+                share = int(row[1])
+                price = float(row[2])
+                result += share*price
+            except ValueError:
+                print("bakchodi chal rahi idhar!", line)
 
-print(result)
+    return result
+
+cost = portfolio_cost("./Work/Data/portfolio.csv")
+
+print(cost)
