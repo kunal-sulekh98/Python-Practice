@@ -32,13 +32,23 @@ def read_prices(filename):
                 pass
         return prices
 
-        
+def make_report(prtfolio, prices):
+    report = []
+    for stock in prtfolio:
+        name = stock['name']
+        shares = stock['shares']
+        price = prices[stock['name']]
+        change = price - stock['price']
+        report.append((name, shares, price, round(change,2)))
+
+    return report
 
 from pprint import pprint
 
 
 pfolio = portfolio("./Work/Data/portfolio.csv")
 prices = read_prices("./Work/Data/prices.csv")
+report = make_report(pfolio, prices)
 
 total_cost = 0.0
 for stock in pfolio:
@@ -49,7 +59,16 @@ for stock in pfolio:
     total_value += stock['shares'] * prices[stock['name']]
 
 
-print('Current value', total_value)
-print('Gain', f"{ total_value - total_cost :.2f}")
+headers = "Names","Shares","Prices", "Changes"
+print('{:>10s} {:>10s} {:>10s} {:>10s}'.format(headers[0], headers[1], headers[2], headers[3]))
+gap = "----------"
+print((gap+" ")*4)
+
+
+for row in report:
+    print('{:>10s} {:10d} {:>10s} {:10.2f}'.format(row[0], row[1], '$'+str(round(row[2],2)), row[3]))
+
+#print('Current value', total_value)
+#print('Gain', f"{ total_value - total_cost :.2f}")
 
 #pprint(prices)
