@@ -13,10 +13,9 @@ def portfolio(filename):
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
-            stock = {}
-            stock['name'] = row[0]
-            stock['shares'] = int(row[1])
-            stock['price'] = float(row[2])
+            #print(row)
+            stock = dict(zip(headers,row))
+            #print(stock)
             portfolio.append(stock)
     return portfolio
 
@@ -38,7 +37,7 @@ def make_report(prtfolio, prices):
         name = stock['name']
         shares = stock['shares']
         price = prices[stock['name']]
-        change = price - stock['price']
+        change = price - float(stock['price'])
         report.append((name, shares, price, round(change,2)))
 
     return report
@@ -46,17 +45,17 @@ def make_report(prtfolio, prices):
 from pprint import pprint
 
 
-pfolio = portfolio("./Work/Data/portfolio.csv")
+pfolio = portfolio("./Work/Data/portfoliodate.csv")
 prices = read_prices("./Work/Data/prices.csv")
 report = make_report(pfolio, prices)
 
-total_cost = 0.0
+"""total_cost = 0.0
 for stock in pfolio:
     total_cost += stock['shares'] * stock['price']
 
 total_value = 0.0
 for stock in pfolio:
-    total_value += stock['shares'] * prices[stock['name']]
+    total_value += stock['shares'] * prices[stock['name']]"""
 
 
 headers = "Names","Shares","Prices", "Changes"
@@ -66,7 +65,9 @@ print((gap+" ")*4)
 
 
 for row in report:
-    print('{:>10s} {:10d} {:>10s} {:10.2f}'.format(row[0], row[1], '$'+str(round(row[2],2)), row[3]))
+    print('{:>10s} {:>10s} {:>10s} {:10.2f}'.format(row[0], row[1], '$'+str(round(row[2],2)), row[3]))
+    
+
 
 #print('Current value', total_value)
 #print('Gain', f"{ total_value - total_cost :.2f}")
