@@ -14,6 +14,8 @@ def portfolio(filename):
         headers = next(rows)
         for row in rows:
             #print(row)
+            row[1] = int(row[1])
+            row[2] = float(row[2])
             stock = dict(zip(headers,row))
             #print(stock)
             portfolio.append(stock)
@@ -45,9 +47,29 @@ def make_report(prtfolio, prices):
 from pprint import pprint
 
 
-pfolio = portfolio("./Work/Data/portfoliodate.csv")
-prices = read_prices("./Work/Data/prices.csv")
-report = make_report(pfolio, prices)
+#pfolio = portfolio("./Work/Data/portfolio.csv")
+#prices = read_prices("./Work/Data/prices.csv")
+#report = make_report(pfolio, prices)
+
+def portfolio_report(p_file, prices_file):
+    pfolio = portfolio(p_file)
+    prices = read_prices(prices_file)
+    rep = make_report(pfolio, prices)
+    
+    headers = "Names","Shares","Prices", "Changes"
+    print('{:>10s} {:>10s} {:>10s} {:>10s}'.format(headers[0], headers[1], headers[2], headers[3]))
+    gap = "----------"
+    print((gap+" ")*4)
+
+    for row in rep:
+        print('{:>10s} {:>10d} {:>10s} {:10.2f}'.format(row[0], row[1], '$'+str(round(row[2],2)), row[3]))
+
+
+
+
+portfolio_report('./Work/Data/portfolio2or.csv', './Work/Data/prices.csv')
+
+
 
 """total_cost = 0.0
 for stock in pfolio:
@@ -58,18 +80,4 @@ for stock in pfolio:
     total_value += stock['shares'] * prices[stock['name']]"""
 
 
-headers = "Names","Shares","Prices", "Changes"
-print('{:>10s} {:>10s} {:>10s} {:>10s}'.format(headers[0], headers[1], headers[2], headers[3]))
-gap = "----------"
-print((gap+" ")*4)
 
-
-for row in report:
-    print('{:>10s} {:>10s} {:>10s} {:10.2f}'.format(row[0], row[1], '$'+str(round(row[2],2)), row[3]))
-    
-
-
-#print('Current value', total_value)
-#print('Gain', f"{ total_value - total_cost :.2f}")
-
-#pprint(prices)
