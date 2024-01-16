@@ -9,6 +9,7 @@ from report import portfolio
 
 
 def portfolio_cost(filename):
+
     
     cost = 0
     pfolio = portfolio(filename)
@@ -32,14 +33,17 @@ def portfolio_cost(filename):
 
     return result"""
 
-if len(sys.argv) == 2:
-    fname = sys.argv[1]
-else:
-    fname = "./Data/portfolio.csv"
+def main(argv):
+    fname = argv[1]
+    cost = portfolio_cost(fname)
+    print("Total cost: ",cost)
     
 
-cost = portfolio_cost(fname)
+if __name__ == '__main__':
+    import sys
+    main(argv = sys.argv)
+    
 
-print("Total cost: ",cost)
+ 
 
 

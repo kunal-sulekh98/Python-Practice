@@ -3,7 +3,7 @@
 # Exercise 2.4
 
 import csv
-
+import sys
 from fileparse import parse_csv
 
 def portfolio(filename):
@@ -67,20 +67,18 @@ def portfolio_report(p_file, prices_file):
     for row in rep:
         print('{:>10s} {:>10d} {:>10s} {:10.2f}'.format(row[0], row[1], '$'+str(round(row[2],2)), row[3]))
 
+def main(argv):
+    portfoliofile = argv[1]
+    pricefile = argv[2]
+    portfolio_report(portfoliofile, pricefile)
 
 
 
-#portfolio_report('./Data/portfolio2.csv', './Data/prices.csv')
+if __name__ == '__main__':
+    import sys
+    main(argv = sys.argv)
 
 
-
-"""total_cost = 0.0
-for stock in pfolio:
-    total_cost += stock['shares'] * stock['price']
-
-total_value = 0.0
-for stock in pfolio:
-    total_value += stock['shares'] * prices[stock['name']]"""
 
 
 
