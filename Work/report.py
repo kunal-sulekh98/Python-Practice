@@ -4,6 +4,8 @@
 
 import csv
 
+from fileparse import parse_csv
+
 def portfolio(filename):
     '''Computes the total cost (shares*price) of a portfolio file'''
     
@@ -52,7 +54,8 @@ from pprint import pprint
 #report = make_report(pfolio, prices)
 
 def portfolio_report(p_file, prices_file):
-    pfolio = portfolio(p_file)
+    pfolio = parse_csv(p_file)
+
     prices = read_prices(prices_file)
     rep = make_report(pfolio, prices)
     
@@ -67,7 +70,7 @@ def portfolio_report(p_file, prices_file):
 
 
 
-portfolio_report('./Work/Data/portfolio2or.csv', './Work/Data/prices.csv')
+#portfolio_report('./Data/portfolio2.csv', './Data/prices.csv')
 
 
 

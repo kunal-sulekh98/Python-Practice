@@ -4,9 +4,20 @@
 
 import csv
 import sys
+from report import portfolio
+
+
 
 def portfolio_cost(filename):
-    result = 0
+    
+    cost = 0
+    pfolio = portfolio(filename)
+    #This above function makes a list of stock entries, each of which is a dictionary
+    for stock in pfolio:
+        cost += stock['shares']*stock['price']
+    return cost
+    
+    """result = 0
     with open(filename) as f:
         rows = csv.reader(f)
         header = next(rows)
@@ -19,13 +30,16 @@ def portfolio_cost(filename):
             except ValueError:
                 print("Row ",no,": Couldn't convert: ", row)
 
-    return result
+    return result"""
 
 if len(sys.argv) == 2:
     fname = sys.argv[1]
 else:
-    fname = "./Work/Data/portfolio.csv"
+    fname = "./Data/portfolio.csv"
+    
 
 cost = portfolio_cost(fname)
 
 print("Total cost: ",cost)
+
+

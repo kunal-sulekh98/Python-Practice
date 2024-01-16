@@ -4,6 +4,7 @@
 
 import csv 
 
+
 def parse_csv(filename, select = None, types=[str, int, float], has_headers = True, delimiter = None, silence_errors = False):
     '''
     Parse a CSV file into a list of records
@@ -51,4 +52,6 @@ def parse_csv(filename, select = None, types=[str, int, float], has_headers = Tr
 
             records.append(record)
     return records
+
+
 
