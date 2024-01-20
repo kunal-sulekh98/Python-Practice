@@ -2,47 +2,24 @@
 #
 # Exercise 1.27
 
-import csv
-import sys
-from report import portfolio
-
-
+import report
 
 def portfolio_cost(filename):
+    '''
+    Computes the total cost (shares*price) of a portfolio file
+    '''
+    portfolio = report.read_portfolio(filename)
+    return sum([s['shares'] * s['price'] for s in portfolio])
 
-    
-    cost = 0
-    pfolio = portfolio(filename)
-    #This above function makes a list of stock entries, each of which is a dictionary
-    for stock in pfolio:
-        cost += stock['shares']*stock['price']
-    return cost
-    
-    """result = 0
-    with open(filename) as f:
-        rows = csv.reader(f)
-        header = next(rows)
-        for no, row in enumerate(rows, start = 1):
-            record = dict(zip(header, row))
-            try:
-                nshares = int(record['shares'])
-                price = float(record['price'])
-                result += nshares*price
-            except ValueError:
-                print("Row ",no,": Couldn't convert: ", row)
-
-    return result"""
-
-def main(argv):
-    fname = argv[1]
-    cost = portfolio_cost(fname)
-    print("Total cost: ",cost)
-    
+def main(args):
+    if len(args) != 2:
+        raise SystemExit('Usage: %s portfoliofile' % args[0])
+    filename = args[1]
+    print('Total cost:', portfolio_cost(filename))
 
 if __name__ == '__main__':
     import sys
-    main(argv = sys.argv)
-    
+    main(sys.argv)
 
  
 
