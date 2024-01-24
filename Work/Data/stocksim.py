@@ -174,7 +174,7 @@ m = MarketSimulator()
 m.add_history(history_file)
 m.reset(minutes("9:30am"))
 
-m.register(BasicPrinter())
+#m.register(BasicPrinter())
 m.register(LogPrinter("stocklog.csv"))
 
 m.run(1)
