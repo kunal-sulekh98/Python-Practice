@@ -10,7 +10,7 @@ class Stock:
     #__slots__ = ('name','shares','price')
     def __init__(self, name, shares, price):
         self.name = name
-        self.shares = sharesg
+        self.shares = shares
         self.price = price
 
     """"
